@@ -2,10 +2,6 @@
 Contracts to emulate XRPL objects on EVM chain
 
 
-# eXRP-Contracts
-Contracts to emulate XRPL objects on EVM chain
-
-
 ### Usage
 
     pip install vyper==0.3.7
