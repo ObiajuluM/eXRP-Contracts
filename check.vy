@@ -49,7 +49,7 @@ def claim_check():
     assert self.authorized[msg.sender], "not authorized claim check"
     assert block.timestamp > self.expiry_date, "too early to claim check"
     log check_cash(msg.sender, self.balance)
-    selfdestruct(msg.sender)
+    selfdestruct(self.receiver)
 
 @nonreentrant("lock-2")
 @external

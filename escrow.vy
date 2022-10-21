@@ -60,7 +60,7 @@ def claim_escrow():
     assert block.timestamp > self.claim_date, "too early to claim"
     assert block.timestamp < self.expiry_date, "too late to claim, can only cancel escrow"
     log escrow_claim(msg.sender, self.balance)
-    selfdestruct(msg.sender)
+    selfdestruct(self.receiver)
     
 @nonreentrant("lock-2")
 @external
