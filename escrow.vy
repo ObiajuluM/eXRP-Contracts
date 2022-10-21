@@ -51,7 +51,7 @@ def __init__(_receiver: address, _claim_date: uint256, _expiry_date: uint256):
     self.ledger_entry_type = "escrow"
     self.authorized[msg.sender] = True
     self.authorized[_receiver] = True
-    log escrow_create(msg.sender, msg.value, _receiver, _claim_date, _expiry_date)
+    log escrow_create(msg.sender, msg.value, _receiver, self.claim_date, self.expiry_date)
 
 @nonreentrant("lock")
 @external

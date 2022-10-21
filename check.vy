@@ -4,8 +4,6 @@ sender: address
 
 receiver: address
 
-amount: uint256
-
 expiry_date: uint256
 
 authorized: HashMap[address, bool]
@@ -35,13 +33,12 @@ event check_cancel:
 def __init__(_receiver: address, _expiry_date: uint256):
     # assert _expiry_date > block.timestamp, "expiry date is in the past"
     self.sender = msg.sender
-    self.amount = msg.value
     self.receiver = _receiver
     self.expiry_date = block.timestamp + _expiry_date
     self.ledger_entry_type = "check"
     self.authorized[msg.sender] = True
     self.authorized[_receiver] = True
-    log check_create(msg.sender, msg.value, _receiver, _expiry_date)
+    log check_create(msg.sender, msg.value, _receiver, self.expiry_date)
 
 @nonreentrant("lock")
 @external
@@ -67,5 +64,4 @@ def amount_in_check() -> uint256:
 @external
 def __default__():
 
-    self.amount += msg.value
     log deposit(msg.sender, msg.value)

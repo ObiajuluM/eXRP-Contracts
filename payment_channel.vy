@@ -84,14 +84,15 @@ def claim(_amount: uint256, _sig: Bytes[65]):
     assert msg.sender == self.receiver, "!receiver"
     assert self.balance >= _amount, "balance < payment"
     assert self._verify(_amount, _sig), "invalid sig"
-
     raw_call(self.receiver, b'\x00', value=_amount)
+    log payment_channel_claim(msg.sender, self.balance)
     selfdestruct(self.sender)
 
 @external
 def cancel():
     assert msg.sender == self.sender, "!sender"
     assert block.timestamp >= self.expiry_date, "!expired"
+    log payment_channel_cancel(msg.sender, self.balance)
     selfdestruct(self.sender)
 
 @external
